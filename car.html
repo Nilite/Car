@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Машинка на CSS</title>
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    overflow-x: hidden;
+    min-height: 100vh;
+    background: linear-gradient(#a9ddf5 0 70%, #93bd70 70% 100%);
+  }
+
+  /* Дорога без дополнительных HTML-элементов. */
+  body::before {
+    content: "";
+    position: absolute;
+    top: 70vh;
+    width: 100%;
+    height: 100px;
+    background: #51565f;
+    border-top: 5px solid #ddd;
+    border-bottom: 5px solid #ddd;
+  }
+
+  body::after {
+    content: "";
+    position: absolute;
+    top: calc(70vh + 60px);
+    width: 100%;
+    height: 4px;
+    background: repeating-linear-gradient(
+      to right, white 0 40px, transparent 40px 75px
+    );
+  }
+
+  /* Один div: кузов и окна — фоны, колёса — псевдоэлементы. */
+  .car {
+    position: absolute;
+    z-index: 1;
+    top: calc(70vh - 65px);
+    left: -200px;
+    width: 200px;
+    height: 90px;
+    background:
+      linear-gradient(110deg, #d9f5ff, #7bbbd8) 55px 8px / 36px 29px no-repeat,
+      linear-gradient(110deg, #d9f5ff, #7bbbd8) 98px 8px / 36px 29px no-repeat,
+      linear-gradient(#f44d52, #b81d30) 43px 0 / 105px 46px no-repeat,
+      linear-gradient(#fff6b0, #fff6b0) 180px 46px / 15px 12px no-repeat,
+      linear-gradient(#ef494e, #c32238) 0 36px / 200px 37px no-repeat;
+    border-radius: 55px 65px 15px 15px;
+    animation: drive 4s ease-out forwards;
+  }
+
+  .car::before,
+  .car::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 40px;
+    height: 40px;
+    border: 9px solid #222;
+    border-radius: 50%;
+    background: #cbd1d6;
+  }
+
+  .car::before { left: 25px; }
+  .car::after { right: 25px; }
+
+  @keyframes drive {
+    from { left: -200px; }
+    to { left: calc(100% - 200px - 50px); }
+  }
+</style>
+</head>
+<body>
+  <div class="car" role="img" aria-label="Красная легковая машина"></div>
+</body>
+</html>
